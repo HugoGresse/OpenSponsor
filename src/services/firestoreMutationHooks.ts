@@ -15,7 +15,7 @@ export type UseMutationResult = {
     isLoading: boolean
     error: { message: string } | null | unknown
     isError: boolean
-    mutate: (data: never, id?: string) => Promise<string | undefined>
+    mutate: (data: object, id?: string) => Promise<string | undefined>
 }
 
 export const useFirestoreCollectionMutation = (ref: CollectionReference): UseMutationResult => {
@@ -23,7 +23,7 @@ export const useFirestoreCollectionMutation = (ref: CollectionReference): UseMut
     const [error, setError] = useState<unknown>(null)
 
     const mutate = useCallback(
-        async (data: never, id?: string) => {
+        async (data: object, id?: string) => {
             try {
                 setLoading(true)
                 if (id) {
@@ -54,7 +54,7 @@ export const useFirestoreDocumentMutation = (ref: DocumentReference): UseMutatio
     const [error, setError] = useState<unknown>(null)
 
     const mutate = useCallback(
-        async (data: never) => {
+        async (data: object) => {
             try {
                 setLoading(true)
                 await setDoc(ref, data, { merge: true }) // We use setDoc to actually trigger the converter
