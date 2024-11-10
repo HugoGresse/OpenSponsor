@@ -11,8 +11,13 @@ jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
+    environment: 'GitHub Action PR'
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+            node-version-file: .nvmrc
+            cache: 'npm'
       - run: npm ci
       - run: npm run build
         env:
