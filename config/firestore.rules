@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+
+        function authenticated() { return request.auth.uid != null; }
+        function isAdmin(data) { return data.owner == request.auth.uid || request.auth.uid in data.members;}
+        function isSuperAdmin(userId) { return exists(/databases/$(database)/documents/admins/users/admins/$(userId)); }
+
+        match /scopes/{scopeId} {
+            allow read: if authenticated() && (isAdmin(resource.data) || isSuperAdmin(request.auth.uid));
+            allow create: if authenticated();
+            allow write: if authenticated() && isAdmin(resource.data);
+        }
+
+        match /admins/users/admins/{userId} {
+        	allow read: if authenticated() && isSuperAdmin(request.auth.uid);
+            allow write: if false;
+            allow create: if false;
+        }
+    }
+  }
+}
