@@ -1,6 +1,16 @@
 import { useState } from 'react'
 import { Project, Scope, Sponsor } from '../types'
-import { Box, Button, Card, CardContent, CircularProgress, Typography, useMediaQuery, useTheme } from '@mui/material'
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CircularProgress,
+    IconButton,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from '@mui/material'
 import { AddSponsorModal } from './modals/AddSponsorModal'
 import { AddProjectModal } from './modals/AddProjectModal'
 import { addProjectToScope } from './actions/addProjectToScope.ts'
@@ -8,15 +18,18 @@ import { addSponsorToScope } from './actions/addSponsorToScope.ts'
 import { SponsorItem } from './SponsorItem.tsx'
 import {
     useFirestoreDocumentArrayItemMutation,
+    useFirestoreDocumentDeletion,
     useFirestoreDocumentMutation,
 } from '../services/firestoreMutationHooks.ts'
 import { collections } from '../services/firebase.ts'
 import { arrayRemove } from '@firebase/firestore'
 import { ProjectItem } from './ProjectItem.tsx'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: () => void }) => {
     const documentMutation = useFirestoreDocumentMutation(collections.scope(scope.id))
     const documentArrayItemMutation = useFirestoreDocumentArrayItemMutation(collections.scope(scope.id))
+    const documentDeleteMutation = useFirestoreDocumentDeletion(collections.scope(scope.id))
     const [expanded, setExpanded] = useState(false)
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -36,12 +49,24 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                 },
             }}>
             <CardContent>
-                <Typography variant="h5" gutterBottom>
-                    {scope.name}
-
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'space-between' }}>
+                    <Typography variant="h5" gutterBottom>
+                        {scope.name}
+                    </Typography>
                     {documentMutation.isLoading && <CircularProgress />}
-                </Typography>
-
+                    <IconButton
+                        size="small"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            if (window.confirm('Are you sure you want to delete this scope?')) {
+                                documentDeleteMutation.mutate().then(() => {
+                                    reloadScope()
+                                })
+                            }
+                        }}>
+                        <DeleteIcon color="error" />
+                    </IconButton>
+                </Box>
                 <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 2 }}>
                     <Box flex={1}>
                         <Typography variant="h6">Sponsors ({displayedSponsors.length})</Typography>
