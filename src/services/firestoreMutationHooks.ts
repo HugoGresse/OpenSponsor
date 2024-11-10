@@ -79,7 +79,7 @@ export type UseMutationDocumentArrayItemResult = {
     isLoading: boolean
     error: { message: string } | null | unknown
     isError: boolean
-    mutate: (data: never, field: string, oldElement: never) => Promise<void>
+    mutate: (data: object, field: string, oldElement: object) => Promise<void>
 }
 /**
  * This hook is used to mutate an item in an array in a document
@@ -90,7 +90,7 @@ export const useFirestoreDocumentArrayItemMutation = (ref: DocumentReference): U
     const [error, setError] = useState<unknown>(null)
 
     const mutate = useCallback(
-        async (data: never, field: string, oldElement: never) => {
+        async (data: object, field: string, oldElement: object) => {
             try {
                 setLoading(true)
 

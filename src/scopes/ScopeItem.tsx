@@ -34,8 +34,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                 '&:hover': {
                     boxShadow: 6,
                 },
-            }}
-        >
+            }}>
             <CardContent>
                 <Typography variant="h5" gutterBottom>
                     {scope.name}
@@ -73,8 +72,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                                 onClick={(e) => {
                                     e.stopPropagation()
                                     setExpanded(true)
-                                }}
-                            >
+                                }}>
                                 See more
                             </Button>
                         )}
@@ -84,8 +82,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                             onClick={(e) => {
                                 e.stopPropagation()
                                 setOpenSponsorModal(true)
-                            }}
-                        >
+                            }}>
                             Add sponsor
                         </Button>
                     </Box>
@@ -134,8 +131,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                                 onClick={(e) => {
                                     e.stopPropagation()
                                     setExpanded(true)
-                                }}
-                            >
+                                }}>
                                 See more
                             </Button>
                         )}
@@ -145,8 +141,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                             onClick={(e) => {
                                 e.stopPropagation()
                                 setOpenProjectModal(true)
-                            }}
-                        >
+                            }}>
                             Add project
                         </Button>
                     </Box>
@@ -159,7 +154,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                 sponsor={typeof openSponsorModal === 'object' ? (openSponsorModal as Sponsor) : undefined}
                 onClose={() => setOpenSponsorModal(false)}
                 onSubmit={async (data, isEdit) => {
-                    if (isEdit) {
+                    if (isEdit && typeof openSponsorModal === 'object') {
                         return documentArrayItemMutation.mutate(data, 'sponsors', openSponsorModal).then(() => {
                             reloadScope()
                             setOpenSponsorModal(false)
@@ -176,7 +171,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                 project={typeof openProjectModal === 'object' ? (openProjectModal as Project) : undefined}
                 onClose={() => setOpenProjectModal(false)}
                 onSubmit={async (data, isEdit) => {
-                    if (isEdit) {
+                    if (isEdit && typeof openProjectModal === 'object') {
                         return documentArrayItemMutation.mutate(data, 'projects', openProjectModal).then(() => {
                             reloadScope()
                             setOpenProjectModal(false)
