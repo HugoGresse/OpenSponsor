@@ -16,13 +16,16 @@ export const Dashboard = () => {
     const mutation = useFirestoreCollectionMutation(collections.scopes())
 
     return (
-        <Container sx={{ minHeight: '100vh' }}>
+        <Container sx={{ minHeight: '100vh', paddingTop: 2 }}>
             <Typography
                 variant="h2"
                 component="h1"
                 gutterBottom
                 sx={{ justifyContent: 'space-between', display: 'flex' }}>
-                Scopes
+                OpenSponsor
+                <Button variant="text" size="small" href="https://github.com/HugoGresse/OpenSponsor" target="_blank">
+                    Github
+                </Button>
             </Typography>
 
             <Button variant="contained" size="small" onClick={() => setNewScopeModalOpen(true)}>

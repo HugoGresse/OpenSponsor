@@ -45,10 +45,8 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
     return (
         <Card
             sx={{
-                m: 2,
-                '&:hover': {
-                    boxShadow: 6,
-                },
+                mt: 2,
+                mb: 2,
             }}>
             <CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'space-between' }}>
