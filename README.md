@@ -9,4 +9,5 @@ Open source sponsorship platform/SaaS to manage your sponsors by scope and provi
 
 ![SCR-20241111-jyxn](https://github.com/user-attachments/assets/d317b7ca-fbe3-4408-b336-062718968011)
 
-![SCR-20241111-jyxn](https://github.com/user-attachments/assets/d501a9f4-9339-4352-8e66-a545c588d0c8)
+
+![SCR-20241111-jzdf](https://github.com/user-attachments/assets/dfb066be-06e6-4b23-aec4-37886fd3e1cf)
