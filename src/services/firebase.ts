@@ -14,7 +14,6 @@ const config = {
     storageBucket: import.meta.env.VITE_FIREBASE_OPEN_SPONSOR_STORAGE_BUCKET,
     appId: import.meta.env.VITE_FIREBASE_OPEN_SPONSOR_APP_ID,
 }
-console.log(config)
 
 export const storageBucket = config.storageBucket
 export const baseStorageUrl = `https://storage.googleapis.com/${storageBucket}`

@@ -59,7 +59,6 @@ export const useFirestoreCollection = <T>(query: Query<T>, subscribe: boolean = 
                         docTransformer(querySnapshot)
                     })
                     .catch((error) => {
-                        setLoading(false)
                         setError(error.message)
                     })
                     .finally(() => {

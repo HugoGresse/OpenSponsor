@@ -4,7 +4,7 @@ import { Box, IconButton, InputAdornment } from '@mui/material'
 import { Download, Image } from '@mui/icons-material'
 import { SidePanelImageUpload } from '../sidepanel/SidePanelImageUpload'
 import { triggerFileDownload } from '../../utils/triggerFileDownload'
-import { getStorageRelativeUrlForImage } from '../../services/useFirebaseStorage.ts'
+import { getStorageRelativeUrlForImage } from '../../services/staticApisFiles.ts'
 import { baseStorageUrl } from '../../services/firebase.ts'
 
 export const ImageTextFieldElement = <TFieldValues extends FieldValues = FieldValues>({
@@ -42,8 +42,7 @@ export const ImageTextFieldElement = <TFieldValues extends FieldValues = FieldVa
                                                     `OpenPlanner-${fileSuffix}.${fieldValueExtension}`
                                                 )
                                             }}
-                                            edge="end"
-                                        >
+                                            edge="end">
                                             <Download />
                                         </IconButton>
                                     </>
@@ -53,8 +52,7 @@ export const ImageTextFieldElement = <TFieldValues extends FieldValues = FieldVa
                                         aria-label="add image"
                                         onClick={openSidePanel}
                                         onMouseDown={openSidePanel}
-                                        edge="end"
-                                    >
+                                        edge="end">
                                         <Image />
                                     </IconButton>
                                 </InputAdornment>

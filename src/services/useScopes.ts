@@ -2,11 +2,15 @@ import { useFirestoreCollection, UseQueryResult } from './firestoreQueryHook'
 import { collections } from './firebase.ts'
 import { Scope } from '../types.ts'
 import { query, QueryConstraint, where } from '@firebase/firestore'
+import { useMemo } from 'react'
 
 export const useScopes = (userId: string | null): UseQueryResult<Scope[]> => {
-    const constraints: QueryConstraint[] = []
+    const queryToRun = useMemo(() => {
+        const constraints: QueryConstraint[] = []
 
-    constraints.push(where('members', 'array-contains', userId))
+        constraints.push(where('members', 'array-contains', userId))
+        return query(collections.scopes(), ...constraints)
+    }, [userId])
 
-    return useFirestoreCollection(query(collections.scopes(), ...constraints))
+    return useFirestoreCollection(queryToRun)
 }

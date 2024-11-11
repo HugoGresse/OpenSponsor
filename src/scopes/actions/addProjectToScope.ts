@@ -1,6 +1,6 @@
 import { arrayUnion, updateDoc, serverTimestamp } from '@firebase/firestore'
 import { collections } from '../../services/firebase'
-import { getProjectStorageUrl } from '../../services/useFirebaseStorage'
+import { getProjectAbsoluteStorageUrl } from '../../services/staticApisFiles.ts'
 import { Project } from '../../types.ts'
 
 export const addProjectToScope = async (
@@ -13,7 +13,7 @@ export const addProjectToScope = async (
         name: project.name,
         id: project.id,
         url: project.url ?? '',
-        projectJsonUrl: getProjectStorageUrl(scopeId, project.id),
+        projectJsonUrl: getProjectAbsoluteStorageUrl(scopeId, project.id),
         sponsorIds: [],
     }
 

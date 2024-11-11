@@ -9,6 +9,5 @@ service firebase.storage {
                    firestore.get(/databases/(default)/documents/scopes/$(scopeId)).data.members;
     }
 
-
   }
 }

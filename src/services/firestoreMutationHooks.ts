@@ -58,6 +58,7 @@ export const useFirestoreDocumentMutation = (ref: DocumentReference): UseMutatio
             try {
                 setLoading(true)
                 await setDoc(ref, data, { merge: true }) // We use setDoc to actually trigger the converter
+                setLoading(false)
                 return undefined
             } catch (error: unknown) {
                 setError(error)

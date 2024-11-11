@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 import { useScopes } from '../services/useScopes.ts'
 import { useUser } from '../services/useUser.tsx'
 import { useState } from 'react'
@@ -23,9 +23,6 @@ export const Dashboard = () => {
                 gutterBottom
                 sx={{ justifyContent: 'space-between', display: 'flex' }}>
                 Scopes
-                <Button variant="contained" onClick={() => logout()} size="small">
-                    Logout
-                </Button>
             </Typography>
 
             <Button variant="contained" size="small" onClick={() => setNewScopeModalOpen(true)}>
@@ -54,6 +51,12 @@ export const Dashboard = () => {
                         })
                 }}
             />
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="contained" onClick={logout}>
+                    Logout
+                </Button>
+            </Box>
         </Container>
     )
 }

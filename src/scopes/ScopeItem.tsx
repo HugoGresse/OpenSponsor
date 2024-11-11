@@ -7,6 +7,7 @@ import {
     CardContent,
     CircularProgress,
     IconButton,
+    Stack,
     Typography,
     useMediaQuery,
     useTheme,
@@ -25,6 +26,7 @@ import { collections } from '../services/firebase.ts'
 import { arrayRemove } from '@firebase/firestore'
 import { ProjectItem } from './ProjectItem.tsx'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { JsonInfosModals } from '../dashboard/JsonInfosModals.tsx'
 
 export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: () => void }) => {
     const documentMutation = useFirestoreDocumentMutation(collections.scope(scope.id))
@@ -53,19 +55,22 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                     <Typography variant="h5" gutterBottom>
                         {scope.name}
                     </Typography>
-                    {documentMutation.isLoading && <CircularProgress />}
-                    <IconButton
-                        size="small"
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            if (window.confirm('Are you sure you want to delete this scope?')) {
-                                documentDeleteMutation.mutate().then(() => {
-                                    reloadScope()
-                                })
-                            }
-                        }}>
-                        <DeleteIcon color="error" />
-                    </IconButton>
+                    <Stack direction="row" spacing={2}>
+                        {documentMutation.isLoading && <CircularProgress />}
+                        <IconButton
+                            size="small"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                if (window.confirm('Are you sure you want to delete this scope?')) {
+                                    documentDeleteMutation.mutate().then(() => {
+                                        reloadScope()
+                                    })
+                                }
+                            }}>
+                            <DeleteIcon color="error" />
+                        </IconButton>
+                        <JsonInfosModals scope={scope} reloadScope={reloadScope} />
+                    </Stack>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 2 }}>
                     <Box flex={1}>

@@ -5,8 +5,6 @@ export type Sponsor = {
     name: string
     logo: string
     website: string
-    createdAt: FieldValue
-    updatedAt: FieldValue
 }
 
 export type Sponsors = Sponsor[]
@@ -17,8 +15,6 @@ export type Project = {
     name: string
     sponsorIds: string[]
     projectJsonUrl: string
-    createdAt: FieldValue
-    updatedAt: FieldValue
 }
 
 export type Projects = Project[]
