@@ -20,6 +20,7 @@ export const AddSponsorModal = ({ open, onClose, sponsor, scopeId, onSubmit }: A
                   ...sponsor,
                   name: sponsor.name || undefined,
                   logo: sponsor.logo || undefined,
+                  logoDark: sponsor.logoDark || undefined,
                   website: sponsor.website || undefined,
               } as Sponsor)
             : ({} as Sponsor),
@@ -39,19 +40,20 @@ export const AddSponsorModal = ({ open, onClose, sponsor, scopeId, onSubmit }: A
                             const objectToSave: {
                                 website: string
                                 logo: string
+                                logoDark: string
                                 name: string
                                 id?: string
                             } = {
                                 website: data.website,
                                 logo: data.logo,
+                                logoDark: data.logoDark,
                                 name: data.name,
                             }
                             if (sponsor) {
                                 objectToSave.id = sponsor.id
                             }
                             return onSubmit(objectToSave, !!sponsor)
-                        }}
-                    >
+                        }}>
                         <TextFieldElement
                             margin="dense"
                             fullWidth
@@ -72,8 +74,19 @@ export const AddSponsorModal = ({ open, onClose, sponsor, scopeId, onSubmit }: A
                             scopeId={scopeId}
                             margin="dense"
                             fullWidth
-                            label="Image URL"
+                            label="Image URL (light"
                             name="logo"
+                            variant="filled"
+                            disabled={isSubmitting}
+                            maxImageSize={1500}
+                            fileSuffix={sponsor?.name}
+                        />
+                        <ImageTextFieldElement
+                            scopeId={scopeId}
+                            margin="dense"
+                            fullWidth
+                            label="Image URL (dark)"
+                            name="logoDark"
                             variant="filled"
                             disabled={isSubmitting}
                             maxImageSize={1500}
@@ -85,8 +98,7 @@ export const AddSponsorModal = ({ open, onClose, sponsor, scopeId, onSubmit }: A
                             loading={formState.isSubmitting}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 2, mb: 2 }}
-                        >
+                            sx={{ mt: 2, mb: 2 }}>
                             {sponsor ? 'Save' : 'Add sponsor'}
                         </LoadingButton>
                     </FormContainer>

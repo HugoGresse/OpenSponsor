@@ -41,6 +41,7 @@ const deployFunction = async (scope: Scope) => {
             name: sponsor.name,
             website: sponsor.website,
             logo: sponsor.logo,
+            logoDark: sponsor.logoDark,
         })),
         projects: scope.projects.map((project) => ({
             id: project.id,

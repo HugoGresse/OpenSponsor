@@ -26,7 +26,7 @@ export const NewScopeModal = ({
                         onSubmit(scope)
                     },
                 }}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>New scope</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         A scope is a pair between projects and sponsors. Each scope will have a name and a list of
@@ -47,7 +47,7 @@ export const NewScopeModal = ({
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onClose}>Cancel</Button>
-                    <Button type="submit">Subscribe</Button>
+                    <Button type="submit">Add scope</Button>
                 </DialogActions>
             </Dialog>
         </>
