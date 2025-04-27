@@ -87,6 +87,31 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                                                 sponsors: arrayRemove(sponsor),
                                             })
                                             .then(() => {
+                                                // Also remove this sponsor from any projects that reference it
+                                                const updatedProjects = scope.projects.map((project) => {
+                                                    if (project.sponsorIds?.includes(sponsor.id)) {
+                                                        return {
+                                                            ...project,
+                                                            sponsorIds: project.sponsorIds.filter(
+                                                                (id) => id !== sponsor.id
+                                                            ),
+                                                        }
+                                                    }
+                                                    return project
+                                                })
+
+                                                // Update any projects that had this sponsor
+                                                const projectsWithSponsor = updatedProjects.filter(
+                                                    (p, i) => p.sponsorIds !== scope.projects[i].sponsorIds
+                                                )
+
+                                                if (projectsWithSponsor.length > 0) {
+                                                    // Replace all projects at once to avoid multiple updates
+                                                    documentMutation.mutate({
+                                                        projects: updatedProjects,
+                                                    })
+                                                }
+
                                                 reloadScope()
                                             })
                                     }}
