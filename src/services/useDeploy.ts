@@ -11,6 +11,8 @@ import { ref, uploadString } from 'firebase/storage'
 import { collections, storage } from './firebase.ts'
 import { fetchJsonGeneratedAt } from './fetchJsonGeneratedAt.ts'
 
+const API_URL = import.meta.env.VITE_OPENSPONSOR_API
+
 const deployFunction = async (scope: Scope) => {
     const metadata = {
         contentType: 'application/json',
@@ -42,6 +44,7 @@ const deployFunction = async (scope: Scope) => {
             website: sponsor.website,
             logo: sponsor.logo,
             logoDark: sponsor.logoDark,
+            tracking: `${API_URL}v1/scopes/${scope.id}/sponsors/${sponsor.id}/click`,
         })),
         projects: scope.projects.map((project) => ({
             id: project.id,
