@@ -51,7 +51,13 @@ const deployFunction = async (scope: Scope) => {
             name: project.name,
             url: project.url,
             sponsorIds: project.sponsorIds,
-            sponsors: project.sponsorIds.map((sponsorId) => scope.sponsors.find((s) => s.id === sponsorId)),
+            sponsors: project.sponsorIds.map((sponsorId) => {
+                const sponsor = scope.sponsors.find((s) => s.id === sponsorId)
+                return {
+                    ...sponsor,
+                    tracking: `${API_URL}v1/scopes/${scope.id}/sponsors/${sponsorId}/click`,
+                }
+            }),
         })),
     }
 
@@ -64,7 +70,13 @@ const deployFunction = async (scope: Scope) => {
                 outputRef,
                 JSON.stringify({
                     generatedAt: new Date().toISOString(),
-                    sponsors: project.sponsorIds.map((sponsorId) => scope.sponsors.find((s) => s.id === sponsorId)),
+                    sponsors: project.sponsorIds.map((sponsorId) => {
+                        const sponsor = scope.sponsors.find((s) => s.id === sponsorId)
+                        return {
+                            ...sponsor,
+                            tracking: `${API_URL}v1/scopes/${scope.id}/sponsors/${sponsorId}/click`,
+                        }
+                    }),
                     url: project.url,
                     name: project.name,
                 }),
