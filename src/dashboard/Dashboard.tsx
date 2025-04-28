@@ -23,7 +23,12 @@ export const Dashboard = () => {
                 gutterBottom
                 sx={{ justifyContent: 'space-between', display: 'flex' }}>
                 OpenSponsor
-                <Button variant="text" size="small" href="https://github.com/HugoGresse/OpenSponsor" target="_blank">
+                <Button
+                    variant="text"
+                    size="small"
+                    href="https://github.com/HugoGresse/OpenSponsor"
+                    target="_blank"
+                    component="a">
                     Github
                 </Button>
             </Typography>
