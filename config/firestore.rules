@@ -12,6 +12,11 @@ service cloud.firestore {
             allow read: if authenticated() && (isAdmin(resource.data) || isSuperAdmin(request.auth.uid));
             allow create: if authenticated();
             allow write: if authenticated() && isAdmin(resource.data);
+
+            match /clicks/{sponsorId} {
+                allow read: if authenticated() && (isAdmin(get(/databases/$(database)/documents/scopes/$(scopeId)).data) || isSuperAdmin(request.auth.uid));
+                allow write: if false;
+            }
         }
 
         match /admins/users/admins/{userId} {

@@ -76,7 +76,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                         <Box>
                             {displayedSponsors.map((sponsor) => (
                                 <SponsorItem
-                                    key={'sponsor-' + sponsor.id}
+                                    key={sponsor.id}
                                     sponsor={sponsor}
                                     onEdit={() => {
                                         setOpenSponsorModal(sponsor)
@@ -115,6 +115,7 @@ export const ScopeItem = ({ scope, reloadScope }: { scope: Scope; reloadScope: (
                                                 reloadScope()
                                             })
                                     }}
+                                    scopeId={scope.id}
                                 />
                             ))}
                         </Box>
